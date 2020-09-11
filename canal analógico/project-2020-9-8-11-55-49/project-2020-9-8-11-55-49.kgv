@@ -1,4 +1,5 @@
 VAR_GLOBAL
 END_VAR
 VAR_GLOBAL
+    T0     :TON   ;  (*  *)
 END_VAR

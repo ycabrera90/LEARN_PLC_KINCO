@@ -1,4 +1,4 @@
 (*2*)
 (* Network 0 *)
 LD    %SM0.0
-CAL    SBR00
+CAL    SBR00    %VW3648, %VW3652, %VR3656, %VR3660, %M0.2, %M0.1, %M0.0, %VR0

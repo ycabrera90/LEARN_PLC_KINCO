@@ -2,34 +2,34 @@
 (* Network 0 *)
 (*multiplicación de I_MIN * 1000*)
 LD    %SM0.0
-MOVE    %VW3648, %VW100
-MUL    1000, %VW100
+MOVE    IMIN, iminxmil
+MUL    1000, iminxmil
 (* Network 1 *)
 (*multiplicación de I_MAX * 1000*)
 LD    %SM0.0
-MOVE    %VW3652, %VW104
-MUL    1000, %VW104
+MOVE    IMAX, imaxxmil
+MUL    1000, imaxxmil
 (* Network 2 *)
 (*escalado de la señal de entrada*)
 LD    %SM0.0
-LINCO    %VW100, %VW104, %VR3656, %VR3660, 1.0, %AIW0, %VD0, %VR0
+LINCO    iminxmil, imaxxmil, MMIN, MMAX, 1.0, %AIW0, %VD0, AO
 (* Network 3 *)
 (*alarma por sensor con valor muy bajo*)
 LD    %SM0.0
-LT    %VR0, %VR3656
-MOVE    1.0, %VR0
-MUL    %VR3656, %VR0
-ST   %M0.0
+LT    AO, MMIN
+MOVE    1.0, AO
+MUL    MMIN, AO
+ST   LOW
 (* Network 4 *)
 (*alarma por sensor con valor muy alto*)
 LD    %SM0.0
-GT    %VR0, %VR3660
-MOVE    1.0, %VR0
-MUL    %VR3660, %VR0
-ST   %M0.1
+GT    AO, MMAX
+MOVE    1.0, AO
+MUL    MMAX, AO
+ST   HIG
 (* Network 5 *)
 (*activación de alarma cuando pasen 5 segundos calor fuera de rango*)
-LD    %M0.0
-OR    %M0.1
+LD    LOW
+OR    HIG
 TON   T0, 5000
-ST   %M0.2
+ST   ALAR

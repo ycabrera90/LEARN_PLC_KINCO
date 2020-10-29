@@ -12,7 +12,7 @@ MUL    1000, imaxxmil
 (* Network 2 *)
 (*escalado de la señal de entrada*)
 LD    %SM0.0
-LINCO    iminxmil, imaxxmil, MMIN, MMAX, 1.0, %AIW0, %VD0, AO
+LINCO    iminxmil, imaxxmil, MMIN, MMAX, 1.0, %AIW0, trash_DI, AO
 (* Network 3 *)
 (*alarma por sensor con valor muy bajo*)
 LD    %SM0.0

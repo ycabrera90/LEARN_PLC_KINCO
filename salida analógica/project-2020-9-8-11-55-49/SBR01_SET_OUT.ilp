@@ -1,66 +1,89 @@
 (*2*)
 (* Network 0 *)
-(*SELECCION DE MODOS DE TRABAJOMODO NORMAL*)
-LDN    %M1.0
-ST   M_NORMAL
+(*PREPARACION DE VALORES DE ENTRADA*)
+LD    TRUE
+AND(
+LD    TRUE
+MOVE    IMIN, iMinXmil
+MUL    1000, iMinXmil
+OR(
+LD    TRUE
+MOVE    IMAX, iMaxXmil
+MUL    1000, iMaxXmil
+)
+)
 (* Network 1 *)
-(*SELECCION DE MODOS DE TRABAJOMODO CALIBRACION DE CERO*)
-LD    %M1.0
-ANDN    %M1.1
-ST   CAL_CERO
+(*MODO NORMAL*)
+LDN    MODE
+MOVE    IOUT, iRawInt
 (* Network 2 *)
-(*SELECCION DE MODOS DE TRABAJOMODO CALIBRACION DE SPAM*)
-LD    %M1.0
-AND    %M1.1
-ST   CAL_SPAM
-(* Network 3 *)
 (*MODO CALIBRACIONCALIBRACION ELECTRICA DE CERO*)
-LD    M_NORMAL
-MOVE    I_OUT, I_RAW
-(* Network 4 *)
-(*MODO CALIBRACIONCALIBRACION ELECTRICA DE SPAM*)
-LD    CAL_CERO
+LD    MODE
+ANDN    ADJ
 AND(
-LD    %SM0.0
-MOVE    4000, I_RAW
+LD    TRUE
+MOVE    IMIN, iRawInt
+MUL    1000, iRawInt
 OR(
-LD    %M1.2
+LD    TRUE
 R_TRIG
-R_TO_DI    O_MIN, VAR02
-INC    VAR02
-DI_TO_R    VAR02, O_MIN
+I_TO_DI    iRawInt, link_DI
+DI_TO_R    link_DI, CERO
 )
 OR(
-LD    %M1.3
+LD    AUM
 R_TRIG
-R_TO_DI    O_MIN, VAR02
-DEC    VAR02
-DI_TO_R    VAR02, O_MIN
+R_TO_DI    CERO, link_DI
+INC    link_DI
+DI_TO_R    link_DI, CERO
+)
+OR(
+LD    DIS
+R_TRIG
+R_TO_DI    CERO, link_DI
+DEC    link_DI
+DI_TO_R    link_DI, CERO
+)
+OR(
+LD    TRUE
+MOVE    CERO, VAL
 )
 )
-(* Network 5 *)
+(* Network 3 *)
 (*MODO CALIBRACIONCALIBRACION ELECTRICA DEL FONDO DE ESCALA*)
-LD    CAL_SPAM
+LD    MODE
+AND    ADJ
 AND(
-LD    %SM0.0
-MOVE    20000, I_RAW
+LD    TRUE
+MOVE    IMAX, iRawInt
+MUL    1000, iRawInt
 OR(
-LD    %M1.2
+LD    TRUE
 R_TRIG
-R_TO_DI    O_MAX, VAR02
-INC    VAR02
-DI_TO_R    VAR02, O_MAX
+I_TO_DI    iRawInt, link_DI
+DI_TO_R    link_DI, SPAN
 )
 OR(
-LD    %M1.3
+LD    AUM
 R_TRIG
-R_TO_DI    O_MAX, VAR02
-DEC    VAR02
-DI_TO_R    VAR02, O_MAX
+R_TO_DI    SPAN, link_DI
+INC    link_DI
+DI_TO_R    link_DI, SPAN
+)
+OR(
+LD    DIS
+R_TRIG
+R_TO_DI    SPAN, link_DI
+DEC    link_DI
+DI_TO_R    link_DI, SPAN
+)
+OR(
+LD    TRUE
+MOVE    SPAN, VAL
 )
 )
-(* Network 6 *)
+(* Network 4 *)
 (*CALCULO DE PENDIENTESETEO DE SALIDA*)
-LD    %SM0.0
-LINCO    I_MIN, I_MAX, O_MIN, O_MAX, 1.0, I_RAW, VAR01, TRASH
-DI_TO_I    VAR01, %AQW0
+LD    TRUE
+LINCO    iMinXmil, iMaxXmil, CERO, SPAN, 1.0, iRawInt, link_DI, trash
+DI_TO_I    link_DI, %AQW0

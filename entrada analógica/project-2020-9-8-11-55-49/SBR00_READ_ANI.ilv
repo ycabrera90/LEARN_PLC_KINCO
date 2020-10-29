@@ -13,4 +13,5 @@ END_VAR
 VAR
     iminxmil  AT  %LW36 : INT ; (* valor de IMIN multiplicado por mil *) 
     imaxxmil  AT  %LW38 : INT ; (* valor de IMAX multiplicado por mil *) 
+    trash_DI  AT  %LD32 : DINT ; (* variable basura DI para el LINCO *) 
 END_VAR

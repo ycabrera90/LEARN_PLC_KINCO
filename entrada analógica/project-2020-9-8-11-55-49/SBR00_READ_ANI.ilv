@@ -1,6 +1,6 @@
 VAR_INPUT
-    IMIN  AT  %LW16 : INT ; (* rango mínimo de la señal de salida del sensor a conectar *) 
-    IMAX  AT  %LW18 : INT ; (* rango máximo de la señal de salida del sensor a conectar *) 
+    IMIN  AT  %LW16 : INT ; (* rango mínimo de la señal de salida del sensor a conectar (0-20) *) 
+    IMAX  AT  %LW18 : INT ; (* rango máximo de la señal de salida del sensor a conectar (0-20) *) 
     MMIN  AT  %LD24 : REAL ; (* valor mínimos de la magnitud leida por el sensor *) 
     MMAX  AT  %LD20 : REAL ; (* valor máximo de la magnitud leída por el sensor *) 
 END_VAR

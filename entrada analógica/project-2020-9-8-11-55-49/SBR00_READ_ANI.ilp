@@ -14,18 +14,40 @@ MUL    1000, imaxxmil
 LD    %SM0.0
 LINCO    iminxmil, imaxxmil, MMIN, MMAX, 1.0, %AIW0, trash_DI, AO
 (* Network 3 *)
-(*alarma por sensor con valor muy bajo*)
-LD    %SM0.0
+(*CASO EN QUE MMAX > MMINalarma por sensor con valor muy bajo*)
+LD    TRUE
+AND(
+LD    TRUE
+GT    MMAX, MMIN
 LT    AO, MMIN
 MOVE    1.0, AO
 MUL    MMIN, AO
+OR(
+LD    TRUE
+GT    MMIN, MMAX
+GT    AO, MMIN
+MOVE    1.0, AO
+MUL    MMIN, AO
+)
+)
 ST   LOW
 (* Network 4 *)
-(*alarma por sensor con valor muy alto*)
-LD    %SM0.0
+(*CASO EN QUE MMAX > MMINalarma por sensor con valor muy alto*)
+LD    TRUE
+AND(
+LD    TRUE
+GT    MMAX, MMIN
 GT    AO, MMAX
 MOVE    1.0, AO
 MUL    MMAX, AO
+OR(
+LD    TRUE
+GT    MMIN, MMAX
+LT    AO, MMAX
+MOVE    1.0, AO
+MUL    MMAX, AO
+)
+)
 ST   HIG
 (* Network 5 *)
 (*activación de alarma cuando pasen 5 segundos calor fuera de rango*)

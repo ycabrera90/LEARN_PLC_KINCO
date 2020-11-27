@@ -27,6 +27,7 @@ MUL    1000, iRawInt
 OR(
 LD    TRUE
 R_TRIG
+EQ    SPAN, 0.0
 I_TO_DI    iRawInt, link_DI
 DI_TO_R    link_DI, CERO
 )
@@ -60,6 +61,7 @@ MUL    1000, iRawInt
 OR(
 LD    TRUE
 R_TRIG
+EQ    SPAN, 0.0
 I_TO_DI    iRawInt, link_DI
 DI_TO_R    link_DI, SPAN
 )

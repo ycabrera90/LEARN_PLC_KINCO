@@ -1,0 +1,108 @@
+(*2*)
+(* Network 0 *)
+(*Cálculo del radio (D/2) del caño*)
+LD    TRUE
+MOVE    VD, radio
+DIV    2.0, radio
+(* Network 1 *)
+(*Calculo de zita en radianes*)
+LD    TRUE
+AND(
+LD    TRUE
+MOVE    VHm, link_1
+SUB    radio, link_1
+OR(
+LD    TRUE
+MOVE    link_1, link_2
+DIV    radio, link_2
+)
+)
+ACOS    link_2, zita_rad
+(* Network 2 *)
+(*conversión de zita de radianes a grados*)
+LD    TRUE
+MOVE    180.00, link_1
+DIV    3.141592653589793238462643383279, link_1
+MOVE    link_1, zita_dg
+MUL    zita_rad, zita_dg
+(* Network 3 *)
+(*CALCULO DE AREA MOJADA EN M2calculo del diametro al cuadrado*)
+LD    TRUE
+MOVE    VD, D2
+MUL    VD, D2
+(* Network 4 *)
+(*calculo del termino 1 de la formula de área mojada*)
+LD    TRUE
+MOVE    3.141592653589793238462643383279, piXD2
+MUL    D2, piXD2
+MOVE    piXD2, term_1
+DIV    4.0, term_1
+(* Network 5 *)
+(*calculo del termino 2 de la formula de área mojada*)
+LD    TRUE
+MOVE    piXD2, link_1
+MUL    zita_dg, link_1
+MOVE    link_1, term_2
+DIV    720.0, term_2
+(* Network 6 *)
+(*calculo del termino 3 de la formula de área mojada*)
+LD    TRUE
+MOVE    2.0, link_1
+MUL    zita_rad, link_1
+SIN    link_1, link_1
+MUL    D2, link_1
+MOVE    link_1, term_3
+DIV    8.0, term_3
+(* Network 7 *)
+(*calculo de la formula mediante los términos ya calculados*)
+LD    TRUE
+MOVE    term_1, link_1
+SUB    term_2, link_1
+MOVE    link_1, Am
+ADD    term_3, Am
+(* Network 8 *)
+(*CALUCULO DEL PERIMETRO MOJADO EN METROS*)
+LD    TRUE
+AND(
+LD    TRUE
+MOVE    zita_dg, link_1
+DIV    180.0, link_1
+MOVE    1.0, link_2
+SUB    link_1, link_2
+OR(
+LD    TRUE
+MOVE    3.141592653589793238462643383279, link_3
+MUL    VD, link_3
+)
+)
+MOVE    link_2, Pm
+MUL    link_3, Pm
+(* Network 9 *)
+(*CALCULO DEL RADIO MOJADO EN METROS*)
+LD    TRUE
+MOVE    Am, Rm
+DIV    Pm, Rm
+(* Network 10 *)
+(*USO DE LA FORMULA DE MANNING PARA EL CALCULO DEL CAUDAL*)
+LD    TRUE
+AND(
+LD    TRUE
+MOVE    3600.0, m_term1
+DIV    Vn, m_term1
+OR(
+LD    TRUE
+LN    Rm, link_1
+MUL    0.66666666666, link_1
+EXP    link_1, link_1
+MOVE    link_1, m_term2
+MUL    Am, m_term2
+)
+OR(
+LD    TRUE
+SQRT    VSo, m_term3
+)
+)
+MOVE    m_term1, link_1
+MUL    m_term2, link_1
+MOVE    link_1, VQm3h
+MUL    m_term3, VQm3h

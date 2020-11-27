@@ -1,0 +1,30 @@
+VAR_INPUT
+    VHm  AT  %LD16 : REAL ; (* ALTURA DE AGUA DEL CANAL EN METROS *) 
+    VD  AT  %LD22 : REAL ; (* DIAMETRO DEL CAÑO EN METROS *) 
+    Vn  AT  %LD38 : REAL ; (* RUGOSIDAD DEL MATERIAL *) 
+    VSo  AT  %LD42 : REAL ; (* PENDIENTE DEL CAÑO *) 
+END_VAR
+VAR_OUTPUT
+    VQm3h  AT  %LD26 : REAL ; (* SALIDA DE CAUDAL EN m3/h *) 
+END_VAR
+VAR
+    radio  AT  %LD34 : REAL ; (*  *) 
+    link_1  AT  %LD46 : REAL ; (*  *) 
+    link_2  AT  %LD54 : REAL ; (*  *) 
+    zita_rad  AT  %LD50 : REAL ; (*  *) 
+    Pm  AT  %LD90 : REAL ; (* perímetro mojado *) 
+    Am  AT  %LD78 : REAL ; (* resultado del cálculo del area mojada *) 
+    zita_dg  AT  %LD58 : REAL ; (* resultado de zita en grados *) 
+    link_3  AT  %LD30 : REAL ; (*  *) 
+    D2  AT  %LD66 : REAL ; (*  *) 
+    term_1  AT  %LD70 : REAL ; (*  *) 
+    term_2  AT  %LD82 : REAL ; (*  *) 
+    term_3  AT  %LD86 : REAL ; (*  *) 
+    link_R  AT  %LD228 : REAL ; (*  *) 
+    cnt_12  AT  %LD62 : REAL ; (* resultado del perímetro mojado en metros *) 
+    Rm  AT  %LD118 : REAL ; (* resultado del calculo del radio mojado en metros *) 
+    m_term1  AT  %LD94 : REAL ; (*  *) 
+    m_term2  AT  %LD74 : REAL ; (*  *) 
+    piXD2  AT  %LD134 : REAL ; (*  *) 
+    m_term3  AT  %LD98 : REAL ; (*  *) 
+END_VAR

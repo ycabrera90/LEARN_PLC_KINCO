@@ -1,17 +1,17 @@
 (*2*)
 (* Network 0 *)
 (*multiplicación de I_MIN * 1000*)
-LD    %SM0.0
+LD    TRUE
 MOVE    IMIN, iminxmil
 MUL    1000, iminxmil
 (* Network 1 *)
 (*multiplicación de I_MAX * 1000*)
-LD    %SM0.0
+LD    TRUE
 MOVE    IMAX, imaxxmil
 MUL    1000, imaxxmil
 (* Network 2 *)
 (*escalado de la señal de entrada*)
-LD    %SM0.0
+LD    TRUE
 LINCO    iminxmil, imaxxmil, MMIN, MMAX, 1.0, %AIW0, trash_DI, AO
 (* Network 3 *)
 (*CASO EN QUE MMAX > MMINalarma por sensor con valor muy bajo*)
